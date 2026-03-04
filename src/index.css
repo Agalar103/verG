@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+@theme {
+  --color-punk-pink: #ff00ff;
+  --color-punk-green: #00ff00;
+  --color-punk-blue: #00ffff;
+  --color-punk-yellow: #ffff00;
+  --font-display: "Space Grotesk", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-[#050505] text-zinc-100 selection:bg-punk-pink selection:text-black;
+    font-family: var(--font-display);
+  }
+
+  h1, h2, h3, h4 {
+    @apply uppercase tracking-tighter font-black;
+  }
+}
+
+.punk-border {
+  border: 2px solid white;
+  box-shadow: 4px 4px 0px var(--color-punk-pink);
+}
+
+.punk-border-green {
+  border: 2px solid white;
+  box-shadow: 4px 4px 0px var(--color-punk-green);
+}
+
+.glitch-text {
+  position: relative;
+  text-shadow: 0.05em 0 0 var(--color-punk-pink), -0.025em -0.05em 0 var(--color-punk-blue),
+    0.025em 0.05em 0 var(--color-punk-yellow);
+  animation: glitch 500ms infinite;
+}
+
+.glitch-text span {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@keyframes glitch {
+  0% {
+    text-shadow: 0.05em 0 0 var(--color-punk-pink), -0.05em -0.025em 0 var(--color-punk-blue),
+      -0.025em 0.05em 0 var(--color-punk-yellow);
+  }
+  14% {
+    text-shadow: 0.05em 0 0 var(--color-punk-pink), -0.05em -0.025em 0 var(--color-punk-blue),
+      -0.025em 0.05em 0 var(--color-punk-yellow);
+  }
+  15% {
+    text-shadow: -0.05em -0.025em 0 var(--color-punk-pink), 0.025em 0.025em 0 var(--color-punk-blue),
+      -0.05em -0.05em 0 var(--color-punk-yellow);
+  }
+  49% {
+    text-shadow: -0.05em -0.025em 0 var(--color-punk-pink), 0.025em 0.025em 0 var(--color-punk-blue),
+      -0.05em -0.05em 0 var(--color-punk-yellow);
+  }
+  50% {
+    text-shadow: 0.025em 0.05em 0 var(--color-punk-pink), 0.05em 0 0 var(--color-punk-blue),
+      0.05em -0.05em 0 var(--color-punk-yellow);
+  }
+  99% {
+    text-shadow: 0.025em 0.05em 0 var(--color-punk-pink), 0.05em 0 0 var(--color-punk-blue),
+      0.05em -0.05em 0 var(--color-punk-yellow);
+  }
+  100% {
+    text-shadow: -0.025em 0 0 var(--color-punk-pink), -0.025em -0.025em 0 var(--color-punk-blue),
+      -0.025em -0.05em 0 var(--color-punk-yellow);
+  }
+}
+
+.punk-card {
+  @apply bg-zinc-900 border-2 border-white/20 relative overflow-hidden;
+  box-shadow: 8px 8px 0px rgba(255, 255, 255, 0.05);
+}
+
+.punk-card::before {
+  content: "";
+  @apply absolute top-0 left-0 w-full h-1 bg-punk-pink opacity-50;
+}
