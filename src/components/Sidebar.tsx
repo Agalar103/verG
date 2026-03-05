@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { 
   LayoutGrid, Sparkles, Box, Layers, Type, MousePointer2, 
   Palette, Zap, Beaker, Terminal, Monitor, Search, 
-  Wrench, Ghost, Magnet, Target, Wind, Droplets, MousePointer
+  Wrench, Ghost, Magnet, Target, Wind, Droplets, MousePointer,
+  Image as ImageIcon, Ribbon, Waves, Circle, Star, MousePointerClick,
+  Activity, Eye, Square, Sticker
 } from 'lucide-react';
 import { motion } from 'motion/react';
 
@@ -27,6 +29,8 @@ const categories = [
       { id: 'bento-grid', name: 'Bento Izgara', icon: LayoutGrid },
       { id: 'x-ray-card', name: 'X-Ray Kart', icon: Sparkles },
       { id: 'magnet', name: 'Mıknatıs', icon: Magnet },
+      { id: 'sticker-peel', name: 'Sticker Peel', icon: Sticker },
+      { id: 'star-border', name: 'Yıldız Kenar', icon: Star },
     ]
   },
   {
@@ -38,6 +42,10 @@ const categories = [
       { id: 'pixel-transition', name: 'Pixel Geçişi', icon: LayoutGrid },
       { id: 'antigravity', name: 'Antigravity', icon: Wind },
       { id: 'logo-loop', name: 'Logo Döngüsü', icon: Layers },
+      { id: 'pixel-trail', name: 'Pixel Trail', icon: Activity },
+      { id: 'cubes', name: '3D Küpler', icon: Box },
+      { id: 'image-trail', name: 'Resim Takibi', icon: ImageIcon },
+      { id: 'ribbons', name: 'Ribbons', icon: Ribbon },
     ]
   },
   {
@@ -48,6 +56,10 @@ const categories = [
       { id: 'orbit-images', name: 'Yörünge Resimleri', icon: Box },
       { id: 'laser-flow', name: 'Lazer Akışı', icon: Zap },
       { id: 'magnet-lines', name: 'Manyetik Çizgiler', icon: Magnet },
+      { id: 'metallic-paint', name: 'Metalik Boya', icon: Palette },
+      { id: 'noise', name: 'Noise Efekti', icon: Activity },
+      { id: 'shape-blur', name: 'Shape Blur', icon: Droplets },
+      { id: 'meta-balls', name: 'Meta Balls', icon: Circle },
     ]
   },
   {
@@ -56,6 +68,9 @@ const categories = [
       { id: 'target-cursor', name: 'Hedef İmleç', icon: Target },
       { id: 'ghost-cursor', name: 'Hayalet İmleç', icon: Ghost },
       { id: 'click-spark', name: 'Tıklama Kıvılcımı', icon: MousePointer },
+      { id: 'crosshair', name: 'Crosshair', icon: Target },
+      { id: 'splash-cursor', name: 'Splash Cursor', icon: MousePointerClick },
+      { id: 'blob-cursor', name: 'Blob Cursor', icon: Eye },
     ]
   },
   {

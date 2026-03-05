@@ -26,6 +26,19 @@ import { GhostCursor } from './components/GhostCursor';
 import { GradualBlur } from './components/GradualBlur';
 import { ClickSpark } from './components/ClickSpark';
 import { Magnet } from './components/Magnet';
+import { StickerPeel } from './components/StickerPeel';
+import { PixelTrail } from './components/PixelTrail';
+import { Cubes } from './components/Cubes';
+import { MetallicPaint } from './components/MetallicPaint';
+import { Noise } from './components/Noise';
+import { ShapeBlur } from './components/ShapeBlur';
+import { Crosshair } from './components/Crosshair';
+import { ImageTrail } from './components/ImageTrail';
+import { Ribbons } from './components/Ribbons';
+import { SplashCursor } from './components/SplashCursor';
+import { MetaBalls } from './components/MetaBalls';
+import { BlobCursor } from './components/BlobCursor';
+import { StarBorder } from './components/StarBorder';
 import { Zap, Signature, ChevronRight, Terminal, MousePointer2, Box, Monitor, Sparkles, LayoutGrid, Palette, Wrench } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -811,6 +824,107 @@ export const Magnet = ({ children, strength = 40 }) => {
   return <motion.div style={{ x, y }}>{children}</motion.div>;
 };`;
 
+const STICKER_PEEL_CODE = `import React, { useState } from 'react';
+import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
+
+export const StickerPeel = ({ children, stickerImage }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  // ... implementation ...
+};`;
+
+const PIXEL_TRAIL_CODE = `import React, { useEffect, useRef } from 'react';
+
+export const PixelTrail = () => {
+  const canvasRef = useRef(null);
+  // ... implementation ...
+};`;
+
+const CUBES_CODE = `import React from 'react';
+import { motion } from 'motion/react';
+
+export const Cubes = () => {
+  // ... implementation ...
+};`;
+
+const METALLIC_PAINT_CODE = `import React from 'react';
+import { motion } from 'motion/react';
+
+export const MetallicPaint = ({ text }) => {
+  // ... implementation ...
+};`;
+
+const NOISE_CODE = `import React from 'react';
+
+export const Noise = () => {
+  return (
+    <div className="fixed inset-0 pointer-events-none z-[9999] opacity-[0.03]">
+      <svg width="100%" height="100%">
+        <filter id="noiseFilter">
+          <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" />
+        </filter>
+        <rect width="100%" height="100%" filter="url(#noiseFilter)" />
+      </svg>
+    </div>
+  );
+};`;
+
+const SHAPE_BLUR_CODE = `import React from 'react';
+import { motion } from 'motion/react';
+
+export const ShapeBlur = () => {
+  // ... implementation ...
+};`;
+
+const CROSSHAIR_CODE = `import React, { useEffect, useState } from 'react';
+import { motion } from 'motion/react';
+
+export const Crosshair = () => {
+  // ... implementation ...
+};`;
+
+const IMAGE_TRAIL_CODE = `import React, { useEffect, useState, useRef } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+
+export const ImageTrail = () => {
+  // ... implementation ...
+};`;
+
+const RIBBONS_CODE = `import React, { useEffect, useRef } from 'react';
+
+export const Ribbons = () => {
+  // ... implementation ...
+};`;
+
+const SPLASH_CURSOR_CODE = `import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+
+export const SplashCursor = () => {
+  // ... implementation ...
+};`;
+
+const META_BALLS_CODE = `import React from 'react';
+import { motion } from 'motion/react';
+
+export const MetaBalls = () => {
+  // ... implementation ...
+};`;
+
+const BLOB_CURSOR_CODE = `import React, { useEffect, useState } from 'react';
+import { motion, useSpring } from 'motion/react';
+
+export const BlobCursor = () => {
+  // ... implementation ...
+};`;
+
+const STAR_BORDER_CODE = `import React from 'react';
+import { motion } from 'motion/react';
+
+export const StarBorder = ({ children }) => {
+  // ... implementation ...
+};`;
+
 const LABS_SITES = [
   { name: 'Mockly', url: 'https://www.getmockly.com/', desc: 'Mockup Design Tool' },
   { name: 'Monitor Situation', url: 'https://monitor-the-situation.com/eastern-europe', desc: 'Eastern Europe Monitoring' },
@@ -926,6 +1040,19 @@ export default function App() {
                  activeComponent === 'magnet' ? 'MIKNATIS' :
                  activeComponent === 'color-picker' ? 'RENK SEÇİCİ' :
                  activeComponent === 'unit-converter' ? 'BİRİM DÖNÜŞTÜRÜCÜ' :
+                 activeComponent === 'sticker-peel' ? 'STICKER PEEL' :
+                 activeComponent === 'pixel-trail' ? 'PIXEL TRAIL' :
+                 activeComponent === 'cubes' ? '3D KÜPLER' :
+                 activeComponent === 'metallic-paint' ? 'METALİK BOYA' :
+                 activeComponent === 'noise' ? 'NOISE EFEKTİ' :
+                 activeComponent === 'shape-blur' ? 'SHAPE BLUR' :
+                 activeComponent === 'crosshair' ? 'CROSSHAIR' :
+                 activeComponent === 'image-trail' ? 'RESİM TAKİBİ' :
+                 activeComponent === 'ribbons' ? 'RIBBONS' :
+                 activeComponent === 'splash-cursor' ? 'SPLASH CURSOR' :
+                 activeComponent === 'meta-balls' ? 'META BALLS' :
+                 activeComponent === 'blob-cursor' ? 'BLOB CURSOR' :
+                 activeComponent === 'star-border' ? 'YILDIZ KENAR' :
                  activeComponent === 'labs' ? 'SİBER LABORATUVAR' :
                  activeComponent === 'beta' ? 'BETA_ACCESS' : 'BİLEŞEN ÖNİZLEME'}
               </h1>
@@ -953,6 +1080,19 @@ export default function App() {
                  activeComponent === 'magnet' ? 'Fareye doğru çekilen interaktif mıknatıs bileşenleri.' :
                  activeComponent === 'color-picker' ? 'Siberpunk paletinden hızlı renk seçimi ve kopyalama aracı.' :
                  activeComponent === 'unit-converter' ? 'Tasarımcılar için hızlı PX to REM dönüşüm modülü.' :
+                 activeComponent === 'sticker-peel' ? 'İnteraktif soyulma efektli siberpunk sticker bileşeni.' :
+                 activeComponent === 'pixel-trail' ? 'Fare hareketlerini takip eden piksellerden oluşan dijital iz.' :
+                 activeComponent === 'cubes' ? 'Sonsuz döngüde dönen 3D siberpunk küpler.' :
+                 activeComponent === 'metallic-paint' ? 'Parlayan ve yansıyan metalik boya efektli metin.' :
+                 activeComponent === 'noise' ? 'Ekrana siberpunk bir hava katan statik noise efekti.' :
+                 activeComponent === 'shape-blur' ? 'Arka planda süzülen ve netleşen amorf şekiller.' :
+                 activeComponent === 'crosshair' ? 'Ekranı tarayan ve hedefleme yapan gelişmiş crosshair.' :
+                 activeComponent === 'image-trail' ? 'Fareyi takip eden dinamik resim galerisi izi.' :
+                 activeComponent === 'ribbons' ? 'Ekranda süzülen parlayan siber şeritler.' :
+                 activeComponent === 'splash-cursor' ? 'Tıklama anında oluşan dijital splash efekti.' :
+                 activeComponent === 'meta-balls' ? 'Birbirine yapışan ve ayrılan akışkan meta-ball simülasyonu.' :
+                 activeComponent === 'blob-cursor' ? 'Şekil değiştiren ve etkileşime giren akışkan imleç.' :
+                 activeComponent === 'star-border' ? 'Dönen ışık efektli ve siberpunk tarzı yıldız kenar.' :
                  activeComponent === 'labs' ? 'Dış dünyadan gelen siber sinyaller ve canlı arayüz portalları.' :
                  activeComponent === 'beta' ? 'Deneysel siberpunk protokolleri ve yayınlanmamış arayüz birimleri.' :
                  'Sıradaki projeniz için kuralları yıkan modern UI bileşenleri.'}
@@ -1168,6 +1308,101 @@ export default function App() {
                         }
                       />
                     </div>
+                  )}
+
+                  {activeComponent === 'sticker-peel' && (
+                    <StickerPeel className="w-[400px] h-[400px]">
+                      <div className="text-center">
+                        <h3 className="text-3xl font-black text-punk-green mb-2 tracking-tighter">ERİŞİM_KODU</h3>
+                        <p className="text-white font-mono text-2xl tracking-[0.5em] bg-black/50 px-4 py-2 border border-punk-green/30">X-77-PUNK</p>
+                      </div>
+                    </StickerPeel>
+                  )}
+
+                  {activeComponent === 'pixel-trail' && (
+                    <div className="flex flex-col items-center gap-4">
+                      <PixelTrail />
+                      <p className="text-punk-pink font-black tracking-[0.3em] animate-pulse bg-black/80 px-6 py-3 border-2 border-punk-pink/50 skew-x-[-12deg]">
+                        FARE_TAKİBİ_AKTİF // PİKSEL_İZİ
+                      </p>
+                    </div>
+                  )}
+
+                  {activeComponent === 'cubes' && <Cubes />}
+
+                  {activeComponent === 'metallic-paint' && (
+                    <div className="flex flex-col items-center gap-8">
+                      <MetallicPaint text="CYBER" />
+                      <MetallicPaint text="PUNK" />
+                    </div>
+                  )}
+
+                  {activeComponent === 'noise' && (
+                    <div className="flex flex-col items-center gap-4">
+                      <Noise />
+                      <div className="p-12 border-2 border-white/10 bg-black/50 backdrop-blur-sm relative overflow-hidden group">
+                        <div className="absolute inset-0 bg-punk-pink/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                        <p className="text-white font-black tracking-[0.5em] relative z-10">STATİK_GÜRÜLTÜ_PROTOKOLÜ</p>
+                      </div>
+                    </div>
+                  )}
+
+                  {activeComponent === 'shape-blur' && <ShapeBlur />}
+
+                  {activeComponent === 'crosshair' && (
+                    <div className="flex flex-col items-center gap-4">
+                      <Crosshair />
+                      <p className="text-punk-pink font-black tracking-[0.3em] bg-black/80 px-6 py-3 border-2 border-punk-pink/50">
+                        HEDEFLEME_SİSTEMİ_ÇEVRİMİÇİ
+                      </p>
+                    </div>
+                  )}
+
+                  {activeComponent === 'image-trail' && (
+                    <div className="flex flex-col items-center gap-4">
+                      <ImageTrail />
+                      <p className="text-punk-pink font-black tracking-[0.3em] bg-black/80 px-6 py-3 border-2 border-punk-pink/50 skew-x-[-12deg]">
+                        GÖRSEL_BELLEK_İZİ // ACTIVE
+                      </p>
+                    </div>
+                  )}
+
+                  {activeComponent === 'ribbons' && (
+                    <div className="flex flex-col items-center gap-4">
+                      <Ribbons />
+                      <p className="text-punk-green font-black tracking-[0.3em] bg-black/80 px-6 py-3 border-2 border-punk-green/50">
+                        SİBER_ŞERİT_AKIŞI
+                      </p>
+                    </div>
+                  )}
+
+                  {activeComponent === 'splash-cursor' && (
+                    <div className="flex flex-col items-center gap-4">
+                      <SplashCursor />
+                      <p className="text-punk-blue font-black tracking-[0.3em] bg-black/80 px-6 py-3 border-2 border-punk-blue/50 skew-x-[-12deg]">
+                        TIKLAMA_TEPKİSİ_AKTİF
+                      </p>
+                    </div>
+                  )}
+
+                  {activeComponent === 'meta-balls' && <MetaBalls />}
+
+                  {activeComponent === 'blob-cursor' && (
+                    <div className="flex flex-col items-center gap-4">
+                      <BlobCursor />
+                      <p className="text-white font-black tracking-[0.3em] bg-black/80 px-6 py-3 border-2 border-white/20">
+                        AKIŞKAN_İMLEÇ_AKTİF
+                      </p>
+                    </div>
+                  )}
+
+                  {activeComponent === 'star-border' && (
+                    <StarBorder className="w-[400px] h-[200px]">
+                      <div className="text-center">
+                        <h3 className="text-2xl font-black text-white mb-2 tracking-tighter">PREMIUM_ACCESS</h3>
+                        <p className="text-punk-pink font-bold italic tracking-widest">VIP_SİSTEM_AKTİF</p>
+                      </div>
+                    </StarBorder>
                   )}
 
                   {activeComponent === 'animated-content' && (
@@ -1549,6 +1784,21 @@ export default function App() {
                           activeComponent === 'x-ray-card' ? X_RAY_CARD_CODE :
                           activeComponent === 'beta' ? BETA_CODE :
                           activeComponent === 'windows-12' ? WINDOWS_12_CODE :
+                          activeComponent === 'antigravity' ? ANTIGRAVITY_CODE :
+                          activeComponent === 'logo-loop' ? LOGO_LOOP_CODE :
+                          activeComponent === 'sticker-peel' ? STICKER_PEEL_CODE :
+                          activeComponent === 'pixel-trail' ? PIXEL_TRAIL_CODE :
+                          activeComponent === 'cubes' ? CUBES_CODE :
+                          activeComponent === 'metallic-paint' ? METALLIC_PAINT_CODE :
+                          activeComponent === 'noise' ? NOISE_CODE :
+                          activeComponent === 'shape-blur' ? SHAPE_BLUR_CODE :
+                          activeComponent === 'crosshair' ? CROSSHAIR_CODE :
+                          activeComponent === 'image-trail' ? IMAGE_TRAIL_CODE :
+                          activeComponent === 'ribbons' ? RIBBONS_CODE :
+                          activeComponent === 'splash-cursor' ? SPLASH_CURSOR_CODE :
+                          activeComponent === 'meta-balls' ? META_BALLS_CODE :
+                          activeComponent === 'blob-cursor' ? BLOB_CURSOR_CODE :
+                          activeComponent === 'star-border' ? STAR_BORDER_CODE :
                           '// Bu bileşen için kod yakında eklenecek...'
                         } 
                       />

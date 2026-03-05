@@ -31,7 +31,7 @@ const SparkItem = ({ x, y }: { x: number; y: number }) => {
   const particles = Array.from({ length: 8 });
   
   return (
-    <div className="absolute" style={{ left: x, top: y }}>
+    <div className="absolute" style={{ left: x, top: y, transform: 'translate(-50%, -50%)' }}>
       {particles.map((_, i) => (
         <motion.div
           key={i}
