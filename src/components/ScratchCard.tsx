@@ -178,7 +178,7 @@ export const ScratchCard: React.FC<ScratchCardProps> = ({
           onMouseDown={handleMouseDown}
           onMouseUp={handleMouseUp}
           className={cn(
-            "relative cursor-none rounded-3xl border-8 border-white/10 bg-zinc-950 shadow-2xl transition-shadow duration-500 overflow-hidden",
+            "relative cursor-none border-8 border-white/10 bg-zinc-950 shadow-2xl transition-shadow duration-500 overflow-hidden",
             isFlipped ? "shadow-cyan-500/20" : "shadow-purple-500/20",
             className
           )}

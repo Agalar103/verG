@@ -11,7 +11,22 @@ import { GlitchText } from './components/GlitchText';
 import { GridBackground } from './components/GridBackground';
 import { AnimatedTabs } from './components/AnimatedTabs';
 import { Windows12 } from './components/Windows12';
-import { Zap, Signature, ChevronRight, Terminal, MousePointer2, Box, Monitor } from 'lucide-react';
+import { ElectricBorder } from './components/ElectricBorder';
+import { GlareHover } from './components/GlareHover';
+import { OrbitImages } from './components/OrbitImages';
+import { PixelTransition } from './components/PixelTransition';
+import { AnimatedContent } from './components/AnimatedContent';
+import { LandingPage } from './components/LandingPage';
+import { Antigravity } from './components/Antigravity';
+import { LogoLoop } from './components/LogoLoop';
+import { TargetCursor } from './components/TargetCursor';
+import { LaserFlow } from './components/LaserFlow';
+import { MagnetLines } from './components/MagnetLines';
+import { GhostCursor } from './components/GhostCursor';
+import { GradualBlur } from './components/GradualBlur';
+import { ClickSpark } from './components/ClickSpark';
+import { Magnet } from './components/Magnet';
+import { Zap, Signature, ChevronRight, Terminal, MousePointer2, Box, Monitor, Sparkles, LayoutGrid, Palette, Wrench } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 const SMOOTH_SCROLL_CODE = `// Smooth Scroll Implementation
@@ -428,6 +443,151 @@ export const AnimatedTabs = ({ tabs, activeTab, onChange }) => {
   );
 };`;
 
+const ELECTRIC_BORDER_CODE = `import React from 'react';
+import { motion } from 'motion/react';
+
+export const ElectricBorder = ({ children, borderColor = "#00ffff", duration = 3 }) => {
+  return (
+    <div className="relative p-[2px] overflow-hidden rounded-xl group">
+      <motion.div
+        className="absolute inset-[-100%] z-0"
+        animate={{ rotate: [0, 360] }}
+        transition={{ duration, repeat: Infinity, ease: "linear" }}
+        style={{
+          background: \`conic-gradient(from 0deg, transparent 0%, \${borderColor} 25%, transparent 50%, \${borderColor} 75%, transparent 100%)\`,
+        }}
+      />
+      <div className="relative z-10 bg-[#050505] rounded-[10px] h-full w-full">
+        {children}
+      </div>
+    </div>
+  );
+};`;
+
+const GLARE_HOVER_CODE = `import React from 'react';
+import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
+
+export const GlareHover = ({ children }) => {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const mouseXSpring = useSpring(x);
+  const mouseYSpring = useSpring(y);
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
+  const glareX = useTransform(mouseXSpring, [-0.5, 0.5], ["0%", "100%"]);
+  const glareY = useTransform(mouseYSpring, [-0.5, 0.5], ["0%", "100%"]);
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    x.set((e.clientX - rect.left) / rect.width - 0.5);
+    y.set((e.clientY - rect.top) / rect.height - 0.5);
+  };
+
+  return (
+    <motion.div
+      onMouseMove={handleMouseMove}
+      onMouseLeave={() => { x.set(0); y.set(0); }}
+      style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+      className="relative group cursor-pointer"
+    >
+      <div className="relative z-10 h-full w-full overflow-hidden rounded-2xl border border-white/10 bg-zinc-900">
+        {children}
+        <motion.div
+          style={{
+            background: \`radial-gradient(circle at var(--glare-x) var(--glare-y), rgba(255,255,255,0.15) 0%, transparent 60%)\`,
+            "--glare-x": glareX,
+            "--glare-y": glareY,
+          } as any}
+          className="absolute inset-0 z-20 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity"
+        />
+      </div>
+    </motion.div>
+  );
+};`;
+
+const ORBIT_IMAGES_CODE = `import React from 'react';
+import { motion } from 'motion/react';
+
+export const OrbitImages = ({ images, centerImage, radius = 150, duration = 20 }) => {
+  return (
+    <div className="relative w-[400px] h-[400px] flex items-center justify-center">
+      <div className="relative z-10 w-24 h-24 rounded-full border-4 border-punk-pink overflow-hidden">
+        <img src={centerImage} className="w-full h-full object-cover" />
+      </div>
+      {images.map((src, index) => {
+        const angle = (index / images.length) * (Math.PI * 2);
+        return (
+          <motion.div
+            key={index}
+            className="absolute w-16 h-16 rounded-xl border-2 border-punk-blue overflow-hidden"
+            animate={{ rotate: [0, 360] }}
+            transition={{ duration, repeat: Infinity, ease: "linear" }}
+            style={{ x: Math.cos(angle) * radius, y: Math.sin(angle) * radius }}
+          >
+            <motion.img src={src} animate={{ rotate: [0, -360] }} transition={{ duration, repeat: Infinity, ease: "linear" }} className="w-full h-full object-cover" />
+          </motion.div>
+        );
+      })}
+    </div>
+  );
+};`;
+
+const PIXEL_TRANSITION_CODE = `import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+
+export const PixelTransition = ({ firstContent, secondContent, gridSize = 10 }) => {
+  const [isFirst, setIsFirst] = useState(true);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  const toggle = () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setIsFirst(!isFirst);
+    setTimeout(() => setIsAnimating(false), 800);
+  };
+
+  return (
+    <div className="relative w-full h-full cursor-pointer overflow-hidden rounded-2xl" onClick={toggle}>
+      <div className="absolute inset-0">{isFirst ? firstContent : secondContent}</div>
+      <AnimatePresence>
+        {isAnimating && (
+          <div className="absolute inset-0 z-50 grid" style={{ gridTemplateColumns: \`repeat(\${gridSize}, 1fr)\` }}>
+            {Array.from({ length: gridSize * gridSize }).map((_, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: [0, 1, 0], scale: [0, 1.1, 0] }}
+                transition={{ duration: 0.6, delay: Math.random() * 0.3 }}
+                className="bg-punk-pink"
+              />
+            ))}
+          </div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};`;
+
+const ANIMATED_CONTENT_CODE = `import React from 'react';
+import { motion } from 'motion/react';
+
+export const AnimatedContent = ({ children, distance = 40, direction = 'vertical', delay = 0 }) => {
+  const x = direction === 'horizontal' ? distance : 0;
+  const y = direction === 'vertical' ? distance : 0;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, x, y }}
+      whileInView={{ opacity: 1, x: 0, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ type: "spring", stiffness: 120, damping: 14, delay }}
+    >
+      {children}
+    </motion.div>
+  );
+};`;
+
 const GRID_BACKGROUND_CODE = `export const GridBackground = () => {
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
@@ -477,6 +637,180 @@ export default function Example() {
   );
 }`;
 
+const ANTIGRAVITY_CODE = `import React from 'react';
+import { motion } from 'motion/react';
+
+export const Antigravity = ({ children, amplitude = 20, duration = 3 }) => {
+  return (
+    <motion.div
+      animate={{
+        y: [0, -amplitude, 0],
+        rotate: [0, 2, -2, 0],
+      }}
+      transition={{
+        duration: duration,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }}
+      className="inline-block"
+    >
+      {children}
+    </motion.div>
+  );
+};`;
+
+const LOGO_LOOP_CODE = `import React from 'react';
+import { motion } from 'motion/react';
+
+export const LogoLoop = ({ logos, duration = 20 }) => {
+  return (
+    <div className="overflow-hidden whitespace-nowrap py-10 relative">
+      <motion.div
+        animate={{ x: [0, '-50%'] }}
+        transition={{
+          duration: duration,
+          repeat: Infinity,
+          ease: "linear"
+        }}
+        className="inline-flex gap-12 items-center"
+      >
+        {[...logos, ...logos].map((logo, index) => (
+          <div key={index} className="opacity-50 hover:opacity-100 transition-opacity">
+            {logo}
+          </div>
+        ))}
+      </motion.div>
+    </div>
+  );
+};`;
+
+const TARGET_CURSOR_CODE = `import React, { useEffect, useState } from 'react';
+import { motion, useSpring } from 'motion/react';
+
+export const TargetCursor = () => {
+  const springX = useSpring(0, { stiffness: 150, damping: 15 });
+  const springY = useSpring(0, { stiffness: 150, damping: 15 });
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      springX.set(e.clientX);
+      springY.set(e.clientY);
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  return (
+    <motion.div
+      style={{ x: springX, y: springY, translateX: '-50%', translateY: '-50%' }}
+      className="fixed inset-0 pointer-events-none z-[9999] w-12 h-12 border border-punk-pink rounded-full flex items-center justify-center"
+    >
+      <div className="w-1 h-1 bg-punk-pink rounded-full"></div>
+    </motion.div>
+  );
+};`;
+
+const LASER_FLOW_CODE = `import React from 'react';
+import { motion } from 'motion/react';
+
+export const LaserFlow = ({ color = '#FF2E63', duration = 2 }) => {
+  return (
+    <div className="relative w-full h-[1px] bg-white/5 overflow-hidden">
+      <motion.div
+        animate={{ x: ['-100%', '100%'] }}
+        transition={{ duration, repeat: Infinity, ease: "linear" }}
+        className="absolute inset-y-0 w-1/3"
+        style={{
+          background: \`linear-gradient(to right, transparent, \${color}, transparent)\`,
+          boxShadow: \`0 0 15px \${color}\`
+        }}
+      />
+    </div>
+  );
+};`;
+
+const MAGNET_LINES_CODE = `import React, { useEffect, useRef, useState } from 'react';
+import { motion } from 'motion/react';
+
+export const MagnetLines = () => {
+  // Implementation details...
+  return <div className="grid gap-4 p-8">...</div>;
+};`;
+
+const GHOST_CURSOR_CODE = `import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+
+export const GhostCursor = () => {
+  const [ghosts, setGhosts] = useState([]);
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setGhosts((prev) => [...prev, { x: e.clientX, y: e.clientY, id: Date.now() }].slice(-10));
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  return (
+    <AnimatePresence>
+      {ghosts.map((ghost) => (
+        <motion.div key={ghost.id} ... />
+      ))}
+    </AnimatePresence>
+  );
+};`;
+
+const GRADUAL_BLUR_CODE = `import React from 'react';
+import { motion } from 'motion/react';
+
+export const GradualBlur = ({ text }) => {
+  return (
+    <div className="flex flex-wrap gap-4">
+      {text.split(' ').map((word, i) => (
+        <motion.span
+          key={i}
+          initial={{ filter: 'blur(10px)', opacity: 0 }}
+          animate={{ filter: 'blur(0px)', opacity: 1 }}
+          transition={{ duration: 0.8, delay: i * 0.1 }}
+        >
+          {word}
+        </motion.span>
+      ))}
+    </div>
+  );
+};`;
+
+const CLICK_SPARK_CODE = `import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+
+export const ClickSpark = () => {
+  const [sparks, setSparks] = useState([]);
+  useEffect(() => {
+    const handleClick = (e) => {
+      setSparks((prev) => [...prev, { x: e.clientX, y: e.clientY, id: Date.now() }]);
+    };
+    window.addEventListener('mousedown', handleClick);
+    return () => window.removeEventListener('mousedown', handleClick);
+  }, []);
+
+  return (
+    <AnimatePresence>
+      {sparks.map((spark) => (
+        <SparkItem key={spark.id} x={spark.x} y={spark.y} />
+      ))}
+    </AnimatePresence>
+  );
+};`;
+
+const MAGNET_CODE = `import React, { useRef } from 'react';
+import { motion, useSpring } from 'motion/react';
+
+export const Magnet = ({ children, strength = 40 }) => {
+  const x = useSpring(0);
+  const y = useSpring(0);
+  // Mouse handlers...
+  return <motion.div style={{ x, y }}>{children}</motion.div>;
+};`;
+
 const LABS_SITES = [
   { name: 'Mockly', url: 'https://www.getmockly.com/', desc: 'Mockup Design Tool' },
   { name: 'Monitor Situation', url: 'https://monitor-the-situation.com/eastern-europe', desc: 'Eastern Europe Monitoring' },
@@ -486,6 +820,7 @@ const LABS_SITES = [
 ];
 
 export default function App() {
+  const [showLanding, setShowLanding] = useState(true);
   const [activeComponent, setActiveComponent] = useState('scratch-card');
   const [activeTab, setActiveTab] = useState('tab1');
   const [selectedLab, setSelectedLab] = useState(LABS_SITES[0].url);
@@ -527,10 +862,24 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#050505] text-zinc-100 flex overflow-x-hidden">
+      <AnimatePresence>
+        {showLanding && (
+          <motion.div
+            key="landing"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0, scale: 1.1, filter: 'blur(20px)' }}
+            transition={{ duration: 0.8, ease: "easeInOut" }}
+            className="fixed inset-0 z-[100]"
+          >
+            <LandingPage onExplore={() => setShowLanding(false)} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <GridBackground />
       <Sidebar activeId={activeComponent} onSelect={setActiveComponent} />
       
       <main className="flex-1 p-12 max-w-6xl mx-auto relative">
-        <GridBackground />
         
         {/* Background Decorative Elements */}
         <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-punk-pink/5 blur-[120px] -z-10"></div>
@@ -560,7 +909,23 @@ export default function App() {
                  activeComponent === 'grid-background' ? 'IZGARA ARKA PLAN' :
                  activeComponent === 'animated-tabs' ? 'SEKMELER' :
                  activeComponent === 'bento-grid' ? 'BENTO IZGARA' : 
-                 activeComponent === 'x-ray-card' ? 'X-RAY TARAYICI' :
+                 activeComponent === 'x-ray-card' ? 'X-RAY KART' :
+                 activeComponent === 'electric-border' ? 'ELEKTRİKLİ KENAR' :
+                 activeComponent === 'glare-hover' ? 'PARLAMA EFEKTİ' :
+                 activeComponent === 'orbit-images' ? 'YÖRÜNGE RESİMLERİ' :
+                 activeComponent === 'pixel-transition' ? 'PIXEL GEÇİŞİ' :
+                 activeComponent === 'animated-content' ? 'HAREKETLİ İÇERİK' :
+                 activeComponent === 'antigravity' ? 'ANTIGRAVITY' :
+                 activeComponent === 'logo-loop' ? 'LOGO DÖNGÜSÜ' :
+                 activeComponent === 'target-cursor' ? 'HEDEF İMLEÇ' :
+                 activeComponent === 'laser-flow' ? 'LAZER AKIŞI' :
+                 activeComponent === 'magnet-lines' ? 'MANYETİK ÇİZGİLER' :
+                 activeComponent === 'ghost-cursor' ? 'HAYALET İMLEÇ' :
+                 activeComponent === 'gradual-blur' ? 'KADEMELİ BLUR' :
+                 activeComponent === 'click-spark' ? 'TIKLAMA KIVILCIMI' :
+                 activeComponent === 'magnet' ? 'MIKNATIS' :
+                 activeComponent === 'color-picker' ? 'RENK SEÇİCİ' :
+                 activeComponent === 'unit-converter' ? 'BİRİM DÖNÜŞTÜRÜCÜ' :
                  activeComponent === 'labs' ? 'SİBER LABORATUVAR' :
                  activeComponent === 'beta' ? 'BETA_ACCESS' : 'BİLEŞEN ÖNİZLEME'}
               </h1>
@@ -572,6 +937,22 @@ export default function App() {
                  activeComponent === 'animated-tabs' ? 'Akıcı geçiş animasyonlarına sahip, punk tarzı modern sekmeler.' :
                  activeComponent === 'bento-grid' ? 'Kaotik ama düzenli, punk estetiğine uygun içerik yerleşim sistemi.' :
                  activeComponent === 'x-ray-card' ? 'Fare hareketiyle alt katmanı ortaya çıkaran interaktif maskeleme efekti.' :
+                 activeComponent === 'electric-border' ? 'Hareketli ışık efektli ve siberpunk tarzı elektrikli kenar bileşeni.' :
+                 activeComponent === 'glare-hover' ? 'Fare hareketine duyarlı, gerçekçi ışık yansıması ve 3D eğim efekti.' :
+                 activeComponent === 'orbit-images' ? 'Merkezi bir nokta etrafında dönen, dinamik görsellerden oluşan yörünge sistemi.' :
+                 activeComponent === 'pixel-transition' ? 'İçerikler arasında pikselleşme efektiyle geçiş sağlayan interaktif bileşen.' :
+                 activeComponent === 'animated-content' ? 'Görünürlük alanına girdiğinde akıcı bir şekilde beliren animasyonlu içerik wrapperı.' :
+                 activeComponent === 'antigravity' ? 'Yerçekimine meydan okuyan, süzülen ve dönen bileşen efekti.' :
+                 activeComponent === 'logo-loop' ? 'Sonsuz döngüde kayan logo veya ikon bandı.' :
+                 activeComponent === 'target-cursor' ? 'Ekran üzerinde hedefleme yapan gelişmiş siberpunk imleç.' :
+                 activeComponent === 'laser-flow' ? 'Sürekli akan, parlayan lazer ışığı çizgileri.' :
+                 activeComponent === 'magnet-lines' ? 'Fareyi takip eden manyetik alan çizgileri ızgarası.' :
+                 activeComponent === 'ghost-cursor' ? 'Fare hareketlerini takip eden hayalet izler.' :
+                 activeComponent === 'gradual-blur' ? 'Metinlerin kademeli olarak netleştiği sinematik efekt.' :
+                 activeComponent === 'click-spark' ? 'Tıklama anında oluşan siberpunk kıvılcım efekti.' :
+                 activeComponent === 'magnet' ? 'Fareye doğru çekilen interaktif mıknatıs bileşenleri.' :
+                 activeComponent === 'color-picker' ? 'Siberpunk paletinden hızlı renk seçimi ve kopyalama aracı.' :
+                 activeComponent === 'unit-converter' ? 'Tasarımcılar için hızlı PX to REM dönüşüm modülü.' :
                  activeComponent === 'labs' ? 'Dış dünyadan gelen siber sinyaller ve canlı arayüz portalları.' :
                  activeComponent === 'beta' ? 'Deneysel siberpunk protokolleri ve yayınlanmamış arayüz birimleri.' :
                  'Sıradaki projeniz için kuralları yıkan modern UI bileşenleri.'}
@@ -732,6 +1113,215 @@ export default function App() {
                     </BentoGrid>
                   )}
 
+                  {activeComponent === 'electric-border' && (
+                    <ElectricBorder className="w-[400px] h-[200px]">
+                      <div className="flex items-center justify-center h-full text-punk-blue font-black tracking-widest uppercase">
+                        Siber Güvenlik Aktif
+                      </div>
+                    </ElectricBorder>
+                  )}
+
+                  {activeComponent === 'glare-hover' && (
+                    <GlareHover className="w-[400px] h-[500px]">
+                      <div className="p-8 h-full flex flex-col justify-between">
+                        <div className="flex justify-between items-start">
+                          <Zap className="text-punk-pink" size={32} />
+                          <div className="text-right">
+                            <p className="text-[10px] text-zinc-500 font-bold uppercase">ID_CARD // v4.0</p>
+                            <p className="text-sm font-black text-white">USER_077</p>
+                          </div>
+                        </div>
+                        <div className="space-y-4">
+                          <div className="h-1 bg-white/10 w-full"></div>
+                          <h3 className="text-4xl font-black text-white italic tracking-tighter">NEON_CITIZEN</h3>
+                        </div>
+                      </div>
+                    </GlareHover>
+                  )}
+
+                  {activeComponent === 'orbit-images' && (
+                    <OrbitImages 
+                      images={[
+                        "https://picsum.photos/seed/1/100/100",
+                        "https://picsum.photos/seed/2/100/100",
+                        "https://picsum.photos/seed/3/100/100",
+                        "https://picsum.photos/seed/4/100/100",
+                        "https://picsum.photos/seed/5/100/100",
+                        "https://picsum.photos/seed/6/100/100",
+                      ]}
+                      centerImage="https://picsum.photos/seed/cyberpunk/200/200"
+                    />
+                  )}
+
+                  {activeComponent === 'pixel-transition' && (
+                    <div className="w-[600px] h-[400px]">
+                      <PixelTransition 
+                        firstContent={
+                          <div className="w-full h-full bg-zinc-900 flex items-center justify-center">
+                            <h3 className="text-4xl font-black text-white italic">KATMAN_01</h3>
+                          </div>
+                        }
+                        secondContent={
+                          <div className="w-full h-full bg-punk-pink/20 flex items-center justify-center border-4 border-punk-pink">
+                            <h3 className="text-4xl font-black text-punk-pink italic">KATMAN_02</h3>
+                          </div>
+                        }
+                      />
+                    </div>
+                  )}
+
+                  {activeComponent === 'animated-content' && (
+                    <div className="flex flex-col gap-8">
+                      <AnimatedContent delay={0.1}>
+                        <div className="p-8 bg-zinc-900 border border-white/10 rounded-xl">
+                          <h3 className="text-2xl font-black text-white mb-2">MODÜL_01</h3>
+                          <p className="text-zinc-500 text-sm">Sistem verileri yükleniyor...</p>
+                        </div>
+                      </AnimatedContent>
+                      <AnimatedContent delay={0.3} direction="horizontal">
+                        <div className="p-8 bg-zinc-900 border border-white/10 rounded-xl">
+                          <h3 className="text-2xl font-black text-white mb-2">MODÜL_02</h3>
+                          <p className="text-zinc-500 text-sm">Ağ bağlantısı kuruldu.</p>
+                        </div>
+                      </AnimatedContent>
+                      <AnimatedContent delay={0.5} reverse>
+                        <div className="p-8 bg-zinc-900 border border-white/10 rounded-xl">
+                          <h3 className="text-2xl font-black text-white mb-2">MODÜL_03</h3>
+                          <p className="text-zinc-500 text-sm">Erişim yetkisi onaylandı.</p>
+                        </div>
+                      </AnimatedContent>
+                    </div>
+                  )}
+
+                  {activeComponent === 'antigravity' && (
+                    <Antigravity amplitude={30} duration={4}>
+                      <div className="p-16 bg-gradient-to-br from-punk-pink/20 to-punk-blue/20 border-2 border-white/10 backdrop-blur-xl rounded-3xl flex flex-col items-center gap-6 shadow-[0_0_50px_rgba(255,46,99,0.2)]">
+                        <Zap className="text-punk-pink fill-punk-pink" size={64} />
+                        <h3 className="text-4xl font-black text-white italic tracking-tighter">ANTIGRAVITY_CORE</h3>
+                        <div className="px-4 py-1 bg-punk-green text-black font-black text-[10px] tracking-widest uppercase">Stable_Orbit</div>
+                      </div>
+                    </Antigravity>
+                  )}
+
+                  {activeComponent === 'logo-loop' && (
+                    <div className="w-full max-w-4xl">
+                      <LogoLoop 
+                        logos={[
+                          <Zap size={40} className="text-punk-pink" />,
+                          <Monitor size={40} className="text-punk-blue" />,
+                          <Terminal size={40} className="text-punk-green" />,
+                          <Box size={40} className="text-white" />,
+                          <Sparkles size={40} className="text-punk-pink" />,
+                          <LayoutGrid size={40} className="text-punk-blue" />,
+                        ]} 
+                      />
+                    </div>
+                  )}
+
+                  {activeComponent === 'target-cursor' && (
+                    <div className="flex flex-col items-center gap-6">
+                      <TargetCursor />
+                      <p className="text-zinc-500 font-bold uppercase tracking-[0.3em] animate-pulse">Hedefleme Sistemi Aktif</p>
+                      <div className="p-8 border-2 border-dashed border-punk-pink/30 text-punk-pink font-black italic">
+                        EKRANDA GEZİNİN
+                      </div>
+                    </div>
+                  )}
+
+                  {activeComponent === 'laser-flow' && (
+                    <div className="w-full flex flex-col gap-12">
+                      <LaserFlow color="#FF2E63" duration={1.5} />
+                      <LaserFlow color="#08D9D6" duration={2.5} />
+                      <LaserFlow color="#00FF00" duration={3.5} />
+                    </div>
+                  )}
+
+                  {activeComponent === 'magnet-lines' && (
+                    <div className="w-full max-w-4xl border-2 border-white/5 bg-black/40">
+                      <MagnetLines />
+                    </div>
+                  )}
+
+                  {activeComponent === 'ghost-cursor' && (
+                    <div className="flex flex-col items-center gap-6">
+                      <GhostCursor />
+                      <p className="text-zinc-500 font-bold uppercase tracking-[0.3em] animate-pulse">Hayalet İzleyici Aktif</p>
+                      <div className="p-8 border-2 border-punk-pink/20 text-punk-pink font-black italic">
+                        FAREYİ HAREKET ETTİRİN
+                      </div>
+                    </div>
+                  )}
+
+                  {activeComponent === 'gradual-blur' && (
+                    <div className="max-w-2xl text-center">
+                      <GradualBlur text="GELECEĞİN SİBERPUNK ARAYÜZLERİNİ BUGÜNDEN İNŞA EDİN" />
+                    </div>
+                  )}
+
+                  {activeComponent === 'click-spark' && (
+                    <div className="flex flex-col items-center gap-6">
+                      <ClickSpark />
+                      <p className="text-zinc-500 font-bold uppercase tracking-[0.3em] animate-pulse">Kıvılcım Modülü Aktif</p>
+                      <button className="px-12 py-6 bg-punk-pink text-black font-black text-2xl uppercase skew-x-[-12deg] hover:scale-110 transition-transform">
+                        BURAYA TIKLA
+                      </button>
+                    </div>
+                  )}
+
+                  {activeComponent === 'magnet' && (
+                    <div className="flex gap-12">
+                      <Magnet strength={50}>
+                        <div className="w-32 h-32 bg-punk-pink flex items-center justify-center font-black text-black text-xl skew-x-[-12deg]">PUNK</div>
+                      </Magnet>
+                      <Magnet strength={80}>
+                        <div className="w-32 h-32 bg-punk-blue flex items-center justify-center font-black text-black text-xl skew-x-[-12deg]">CORE</div>
+                      </Magnet>
+                      <Magnet strength={120}>
+                        <div className="w-32 h-32 bg-punk-green flex items-center justify-center font-black text-black text-xl skew-x-[-12deg]">TECH</div>
+                      </Magnet>
+                    </div>
+                  )}
+
+                  {activeComponent === 'color-picker' && (
+                    <div className="p-12 bg-zinc-900 border-2 border-white/10 rounded-3xl flex flex-col gap-8 w-full max-w-md">
+                      <h3 className="text-2xl font-black text-white tracking-tighter italic">SİBER_RENK_SEÇİCİ</h3>
+                      <div className="grid grid-cols-4 gap-4">
+                        {['#FF2E63', '#08D9D6', '#00FF00', '#FFFFFF', '#FFD700', '#8A2BE2', '#FF4500', '#1E90FF'].map(c => (
+                          <button 
+                            key={c}
+                            onClick={() => navigator.clipboard.writeText(c)}
+                            className="w-full aspect-square border-2 border-white/10 hover:border-white transition-colors flex items-center justify-center group"
+                            style={{ backgroundColor: c }}
+                          >
+                            <span className="text-[8px] font-black text-black opacity-0 group-hover:opacity-100 uppercase">Kopyala</span>
+                          </button>
+                        ))}
+                      </div>
+                      <div className="p-4 bg-black/40 border border-white/5 text-[10px] font-bold text-zinc-500 uppercase tracking-widest">
+                        Renk koduna tıklayarak kopyalayabilirsiniz.
+                      </div>
+                    </div>
+                  )}
+
+                  {activeComponent === 'unit-converter' && (
+                    <div className="p-12 bg-zinc-900 border-2 border-white/10 rounded-3xl flex flex-col gap-8 w-full max-w-md">
+                      <h3 className="text-2xl font-black text-white tracking-tighter italic">BİRİM_DÖNÜŞTÜRÜCÜ</h3>
+                      <div className="space-y-4">
+                        <div className="flex flex-col gap-2">
+                          <label className="text-[10px] font-black text-punk-pink uppercase tracking-widest">Piksel (PX)</label>
+                          <input type="number" defaultValue={16} className="bg-black/40 border border-white/10 p-3 text-white font-black focus:outline-none focus:border-punk-pink" />
+                        </div>
+                        <div className="flex flex-col gap-2">
+                          <label className="text-[10px] font-black text-punk-blue uppercase tracking-widest">REM</label>
+                          <input type="text" value="1rem" readOnly className="bg-black/40 border border-white/10 p-3 text-zinc-500 font-black" />
+                        </div>
+                      </div>
+                      <div className="p-4 bg-punk-pink/5 border border-punk-pink/20 text-[10px] font-bold text-punk-pink uppercase tracking-widest">
+                        Standart 16px baz alınmıştır.
+                      </div>
+                    </div>
+                  )}
+
                   {activeComponent === 'windows-12' && (
                     <Windows12 />
                   )}
@@ -796,6 +1386,146 @@ export default function App() {
                         <CodePreview code={SCRATCH_CARD_CSS} language="css" />
                       </div>
                     </>
+                  ) : activeComponent === 'electric-border' ? (
+                    <div className="relative">
+                      <div className="flex items-center gap-4 mb-8">
+                        <div className="h-[1px] flex-1 bg-zinc-800"></div>
+                        <h3 className="text-sm font-black uppercase tracking-[0.5em] text-zinc-100 flex items-center gap-2">
+                          <span className="text-punk-pink">&gt;_</span> Code
+                        </h3>
+                      </div>
+                      <CodePreview code={ELECTRIC_BORDER_CODE} language="tsx" />
+                    </div>
+                  ) : activeComponent === 'glare-hover' ? (
+                    <div className="relative">
+                      <div className="flex items-center gap-4 mb-8">
+                        <div className="h-[1px] flex-1 bg-zinc-800"></div>
+                        <h3 className="text-sm font-black uppercase tracking-[0.5em] text-zinc-100 flex items-center gap-2">
+                          <span className="text-punk-pink">&gt;_</span> Code
+                        </h3>
+                      </div>
+                      <CodePreview code={GLARE_HOVER_CODE} language="tsx" />
+                    </div>
+                  ) : activeComponent === 'orbit-images' ? (
+                    <div className="relative">
+                      <div className="flex items-center gap-4 mb-8">
+                        <div className="h-[1px] flex-1 bg-zinc-800"></div>
+                        <h3 className="text-sm font-black uppercase tracking-[0.5em] text-zinc-100 flex items-center gap-2">
+                          <span className="text-punk-pink">&gt;_</span> Code
+                        </h3>
+                      </div>
+                      <CodePreview code={ORBIT_IMAGES_CODE} language="tsx" />
+                    </div>
+                  ) : activeComponent === 'pixel-transition' ? (
+                    <div className="relative">
+                      <div className="flex items-center gap-4 mb-8">
+                        <div className="h-[1px] flex-1 bg-zinc-800"></div>
+                        <h3 className="text-sm font-black uppercase tracking-[0.5em] text-zinc-100 flex items-center gap-2">
+                          <span className="text-punk-pink">&gt;_</span> Code
+                        </h3>
+                      </div>
+                      <CodePreview code={PIXEL_TRANSITION_CODE} language="tsx" />
+                    </div>
+                  ) : activeComponent === 'animated-content' ? (
+                    <div className="relative">
+                      <div className="flex items-center gap-4 mb-8">
+                        <div className="h-[1px] flex-1 bg-zinc-800"></div>
+                        <h3 className="text-sm font-black uppercase tracking-[0.5em] text-zinc-100 flex items-center gap-2">
+                          <span className="text-punk-pink">&gt;_</span> Code
+                        </h3>
+                      </div>
+                      <CodePreview code={ANIMATED_CONTENT_CODE} language="tsx" />
+                    </div>
+                  ) : activeComponent === 'antigravity' ? (
+                    <div className="relative">
+                      <div className="flex items-center gap-4 mb-8">
+                        <div className="h-[1px] flex-1 bg-zinc-800"></div>
+                        <h3 className="text-sm font-black uppercase tracking-[0.5em] text-zinc-100 flex items-center gap-2">
+                          <span className="text-punk-pink">&gt;_</span> Code
+                        </h3>
+                      </div>
+                      <CodePreview code={ANTIGRAVITY_CODE} language="tsx" />
+                    </div>
+                  ) : activeComponent === 'logo-loop' ? (
+                    <div className="relative">
+                      <div className="flex items-center gap-4 mb-8">
+                        <div className="h-[1px] flex-1 bg-zinc-800"></div>
+                        <h3 className="text-sm font-black uppercase tracking-[0.5em] text-zinc-100 flex items-center gap-2">
+                          <span className="text-punk-pink">&gt;_</span> Code
+                        </h3>
+                      </div>
+                      <CodePreview code={LOGO_LOOP_CODE} language="tsx" />
+                    </div>
+                  ) : activeComponent === 'target-cursor' ? (
+                    <div className="relative">
+                      <div className="flex items-center gap-4 mb-8">
+                        <div className="h-[1px] flex-1 bg-zinc-800"></div>
+                        <h3 className="text-sm font-black uppercase tracking-[0.5em] text-zinc-100 flex items-center gap-2">
+                          <span className="text-punk-pink">&gt;_</span> Code
+                        </h3>
+                      </div>
+                      <CodePreview code={TARGET_CURSOR_CODE} language="tsx" />
+                    </div>
+                  ) : activeComponent === 'laser-flow' ? (
+                    <div className="relative">
+                      <div className="flex items-center gap-4 mb-8">
+                        <div className="h-[1px] flex-1 bg-zinc-800"></div>
+                        <h3 className="text-sm font-black uppercase tracking-[0.5em] text-zinc-100 flex items-center gap-2">
+                          <span className="text-punk-pink">&gt;_</span> Code
+                        </h3>
+                      </div>
+                      <CodePreview code={LASER_FLOW_CODE} language="tsx" />
+                    </div>
+                  ) : activeComponent === 'magnet-lines' ? (
+                    <div className="relative">
+                      <div className="flex items-center gap-4 mb-8">
+                        <div className="h-[1px] flex-1 bg-zinc-800"></div>
+                        <h3 className="text-sm font-black uppercase tracking-[0.5em] text-zinc-100 flex items-center gap-2">
+                          <span className="text-punk-pink">&gt;_</span> Code
+                        </h3>
+                      </div>
+                      <CodePreview code={MAGNET_LINES_CODE} language="tsx" />
+                    </div>
+                  ) : activeComponent === 'ghost-cursor' ? (
+                    <div className="relative">
+                      <div className="flex items-center gap-4 mb-8">
+                        <div className="h-[1px] flex-1 bg-zinc-800"></div>
+                        <h3 className="text-sm font-black uppercase tracking-[0.5em] text-zinc-100 flex items-center gap-2">
+                          <span className="text-punk-pink">&gt;_</span> Code
+                        </h3>
+                      </div>
+                      <CodePreview code={GHOST_CURSOR_CODE} language="tsx" />
+                    </div>
+                  ) : activeComponent === 'gradual-blur' ? (
+                    <div className="relative">
+                      <div className="flex items-center gap-4 mb-8">
+                        <div className="h-[1px] flex-1 bg-zinc-800"></div>
+                        <h3 className="text-sm font-black uppercase tracking-[0.5em] text-zinc-100 flex items-center gap-2">
+                          <span className="text-punk-pink">&gt;_</span> Code
+                        </h3>
+                      </div>
+                      <CodePreview code={GRADUAL_BLUR_CODE} language="tsx" />
+                    </div>
+                  ) : activeComponent === 'click-spark' ? (
+                    <div className="relative">
+                      <div className="flex items-center gap-4 mb-8">
+                        <div className="h-[1px] flex-1 bg-zinc-800"></div>
+                        <h3 className="text-sm font-black uppercase tracking-[0.5em] text-zinc-100 flex items-center gap-2">
+                          <span className="text-punk-pink">&gt;_</span> Code
+                        </h3>
+                      </div>
+                      <CodePreview code={CLICK_SPARK_CODE} language="tsx" />
+                    </div>
+                  ) : activeComponent === 'magnet' ? (
+                    <div className="relative">
+                      <div className="flex items-center gap-4 mb-8">
+                        <div className="h-[1px] flex-1 bg-zinc-800"></div>
+                        <h3 className="text-sm font-black uppercase tracking-[0.5em] text-zinc-100 flex items-center gap-2">
+                          <span className="text-punk-pink">&gt;_</span> Code
+                        </h3>
+                      </div>
+                      <CodePreview code={MAGNET_CODE} language="tsx" />
+                    </div>
                   ) : (
                     <div className="relative">
                       <div className="flex items-center gap-4 mb-8">

@@ -38,7 +38,7 @@ export const XRayCard = ({
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="relative overflow-hidden cursor-none border-2 border-white/10 rounded-2xl bg-black"
+      className="relative overflow-hidden cursor-none border-2 border-white/10 bg-black"
       style={{ width, height }}
     >
       {/* Bottom Image (The "X-Ray" result) */}

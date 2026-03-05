@@ -9,6 +9,9 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-[#050505] text-zinc-100 selection:bg-punk-pink selection:text-black;
     font-family: var(--font-display);
@@ -17,6 +20,24 @@
   h1, h2, h3, h4 {
     @apply uppercase tracking-tighter font-black;
   }
+
+  /* Hide scrollbar for all elements by default while keeping functionality */
+  * {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
+
+  *::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .punk-border {

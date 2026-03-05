@@ -38,7 +38,7 @@ export const Beta = () => {
   const steamKey = "CSGO-BETA-2011-VALV-7777";
 
   return (
-    <div className="w-full flex flex-col items-center justify-center min-h-[1000px] p-8 gap-12 bg-[#050505]">
+    <div className="w-full flex flex-col items-center justify-center min-h-[1000px] p-8 gap-12 bg-transparent">
       {/* Başlık Bölümü */}
       <div className="flex flex-col items-center text-center gap-2 mb-4">
         <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 text-zinc-500 text-[9px] font-black tracking-[0.5em] uppercase">

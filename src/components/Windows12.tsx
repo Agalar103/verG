@@ -1,11 +1,40 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Play, Pause, Maximize, Volume2, Settings, Monitor, Cpu, HardDrive, Wifi, Layers } from 'lucide-react';
 
 export const Windows12 = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
+
+  // Auto-play when in view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && videoRef.current) {
+            videoRef.current.play().catch(err => console.log("Autoplay prevented:", err));
+            setIsPlaying(true);
+          } else if (videoRef.current) {
+            videoRef.current.pause();
+            setIsPlaying(false);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      if (containerRef.current) {
+        observer.unobserve(containerRef.current);
+      }
+    };
+  }, []);
 
   const togglePlay = async () => {
     if (videoRef.current) {
@@ -34,7 +63,7 @@ export const Windows12 = () => {
   };
 
   return (
-    <div className="w-full max-w-6xl mx-auto p-8 flex flex-col gap-8">
+    <div className="w-full flex flex-col gap-8">
       <div className="flex flex-col gap-2">
         <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black tracking-[0.3em] uppercase w-fit">
           <Monitor size={12} />
@@ -46,7 +75,10 @@ export const Windows12 = () => {
         <p className="text-zinc-500 text-sm uppercase font-bold tracking-widest">Geleceğin işletim sistemi deneyimi.</p>
       </div>
 
-      <div className="relative group rounded-[2.5rem] overflow-hidden border-4 border-white/10 bg-black shadow-2xl shadow-blue-500/10">
+      <div 
+        ref={containerRef}
+        className="relative group overflow-hidden border-4 border-white/10 bg-black shadow-2xl shadow-blue-500/10"
+      >
         {/* Glass Overlay */}
         <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-tr from-blue-500/5 via-transparent to-white/5"></div>
         
@@ -58,6 +90,8 @@ export const Windows12 = () => {
           onPlay={() => setIsPlaying(true)}
           onPause={() => setIsPlaying(false)}
           playsInline
+          muted
+          loop
           src="https://v1.coverr.co/videos/preview/720p/coverr-abstract-blue-lines-9258.mp4"
           className="w-full aspect-video object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-700 cursor-pointer"
           poster="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=1974&auto=format&fit=crop"
