@@ -936,6 +936,10 @@ const LABS_SITES = [
 export default function App() {
   const [showLanding, setShowLanding] = useState(true);
   const [activeComponent, setActiveComponent] = useState('scratch-card');
+  const [metallicText, setMetallicText] = useState('CYBER PUNK');
+  const [metallicFontSize, setMetallicFontSize] = useState('text-8xl');
+  const [metallicGlowColor, setMetallicGlowColor] = useState('#ff003c');
+  const [isEditingMetallic, setIsEditingMetallic] = useState(false);
   const [activeTab, setActiveTab] = useState('tab1');
   const [selectedLab, setSelectedLab] = useState(LABS_SITES[0].url);
   const [prize, setPrize] = useState('$299');
@@ -1331,9 +1335,75 @@ export default function App() {
                   {activeComponent === 'cubes' && <Cubes />}
 
                   {activeComponent === 'metallic-paint' && (
-                    <div className="flex flex-col items-center gap-8">
-                      <MetallicPaint text="CYBER" />
-                      <MetallicPaint text="PUNK" />
+                    <div className="flex flex-col items-center gap-12 w-full max-w-4xl">
+                      <div className="flex flex-col items-center gap-4">
+                        <MetallicPaint 
+                          text={metallicText} 
+                          fontSize={metallicFontSize} 
+                          glowColor={metallicGlowColor} 
+                        />
+                      </div>
+
+                      <div className="flex flex-col items-center gap-6 w-full">
+                        <button 
+                          onClick={() => setIsEditingMetallic(!isEditingMetallic)}
+                          className="px-8 py-4 bg-zinc-900 border-2 border-punk-pink/50 text-punk-pink font-black tracking-[0.3em] uppercase hover:bg-punk-pink hover:text-black transition-all duration-300 flex items-center gap-3 group"
+                        >
+                          <Wrench size={20} className="group-hover:rotate-45 transition-transform" />
+                          BU YAZIYI MODİFİYE ET
+                        </button>
+
+                        <AnimatePresence>
+                          {isEditingMetallic && (
+                            <motion.div 
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: 20 }}
+                              className="w-full p-8 bg-black/80 border-2 border-white/10 backdrop-blur-xl grid grid-cols-1 md:grid-cols-3 gap-8"
+                            >
+                              <div className="space-y-4">
+                                <label className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Metin İçeriği</label>
+                                <input 
+                                  type="text" 
+                                  value={metallicText}
+                                  onChange={(e) => setMetallicText(e.target.value)}
+                                  className="w-full bg-zinc-900 border border-white/10 p-4 text-white font-black uppercase tracking-widest focus:border-punk-pink outline-none"
+                                />
+                              </div>
+                              <div className="space-y-4">
+                                <label className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Yazı Boyutu</label>
+                                <select 
+                                  value={metallicFontSize}
+                                  onChange={(e) => setMetallicFontSize(e.target.value)}
+                                  className="w-full bg-zinc-900 border border-white/10 p-4 text-white font-black uppercase tracking-widest focus:border-punk-pink outline-none"
+                                >
+                                  <option value="text-4xl">KÜÇÜK</option>
+                                  <option value="text-6xl">ORTA</option>
+                                  <option value="text-8xl">BÜYÜK</option>
+                                  <option value="text-[12rem]">DEVASA</option>
+                                </select>
+                              </div>
+                              <div className="space-y-4">
+                                <label className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Parlama Rengi</label>
+                                <div className="flex gap-4">
+                                  <input 
+                                    type="color" 
+                                    value={metallicGlowColor}
+                                    onChange={(e) => setMetallicGlowColor(e.target.value)}
+                                    className="w-16 h-16 bg-transparent border-none cursor-pointer"
+                                  />
+                                  <input 
+                                    type="text" 
+                                    value={metallicGlowColor}
+                                    onChange={(e) => setMetallicGlowColor(e.target.value)}
+                                    className="flex-1 bg-zinc-900 border border-white/10 p-4 text-white font-mono uppercase tracking-widest focus:border-punk-pink outline-none"
+                                  />
+                                </div>
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
                     </div>
                   )}
 
