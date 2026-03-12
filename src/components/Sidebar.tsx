@@ -4,7 +4,7 @@ import {
   Palette, Zap, Beaker, Terminal, Monitor, Search, 
   Wrench, Ghost, Magnet, Target, Wind, Droplets, MousePointer,
   Image as ImageIcon, Ribbon, Waves, Circle, Star, MousePointerClick,
-  Activity, Eye, Square, Sticker
+  Activity, Eye, Square, Sticker, CreditCard
 } from 'lucide-react';
 import { motion } from 'motion/react';
 
@@ -92,6 +92,24 @@ const categories = [
       { id: 'beta', name: 'Beta', icon: Beaker },
       { id: 'labs', name: 'Labs', icon: Terminal },
       { id: 'windows-12', name: 'Windows 12', icon: Monitor },
+    ]
+  },
+  {
+    title: 'UIVERSE',
+    items: [
+      { id: 'u-pro-card', name: 'Pro Card', icon: LayoutGrid },
+      { id: 'u-star-banner', name: 'Star Banner', icon: Star },
+      { id: 'u-car-anim', name: 'Car Anim', icon: Activity },
+      { id: 'u-mastercard', name: 'MasterCard', icon: CreditCard },
+      { id: 'u-hoodie-card', name: 'Hoodie Card', icon: Box },
+      { id: 'u-astro-card', name: 'Astro Card', icon: Ghost },
+      { id: 'u-truck-anim', name: 'Truck Anim', icon: Activity },
+      { id: 'u-phone-card-1', name: 'Phone Card 1', icon: Monitor },
+      { id: 'u-phone-card-2', name: 'Phone Card 2', icon: Monitor },
+      { id: 'u-social-squircle', name: 'Social Squircle', icon: Layers },
+      { id: 'u-transaction-card', name: 'Transaction Card', icon: Activity },
+      { id: 'u-3d-ui-card', name: '3D UI Card', icon: Box },
+      { id: 'u-spot', name: 'Spot', icon: Sparkles },
     ]
   }
 ];

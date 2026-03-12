@@ -103,3 +103,422 @@
   content: "";
   @apply absolute top-0 left-0 w-full h-1 bg-punk-pink opacity-50;
 }
+
+/* Uiverse Components Scoped CSS */
+
+/* Pro Card - MuhammadHasann */
+.u-pro-card .card {
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+  width: 14rem;
+  background-color: #1a1a1a;
+  background-image: radial-gradient(circle at 0% 0%, #333333, #1a1a1a);
+  border-radius: 0.5rem;
+}
+
+.u-pro-card .title {
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.u-pro-card .pricing {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.u-pro-card .pricing-time {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: #999999;
+}
+
+.u-pro-card .sub-title {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: #999999;
+}
+
+.u-pro-card .list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-top: 0.5rem;
+  list-style: none;
+  padding: 0;
+}
+
+.u-pro-card .list-item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: #ffffff;
+}
+
+.u-pro-card .check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 0.75rem;
+  height: 0.75rem;
+  background-color: #4ade80;
+  color: #1a1a1a;
+  border-radius: 50%;
+  font-size: 0.5rem;
+  font-weight: 700;
+}
+
+.u-pro-card .button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  margin-top: 0.75rem;
+  padding: 0.5rem;
+  width: 100%;
+  background-color: #ffffff;
+  color: #1a1a1a;
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.u-pro-card .button:hover {
+  background-color: #e5e5e5;
+}
+
+/* Star Banner - Lakshay-art */
+.u-star-banner .card {
+  width: 300px;
+  height: 200px;
+  background: #07182e;
+  position: relative;
+  display: flex;
+  place-content: center;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.u-star-banner .card h2 {
+  z-index: 1;
+  color: white;
+  font-size: 2em;
+}
+
+.u-star-banner .card::before {
+  content: '';
+  position: absolute;
+  width: 100px;
+  background-image: linear-gradient(180deg, rgb(0, 183, 255), rgb(255, 48, 255));
+  height: 130%;
+  animation: rotBGimg 3s linear infinite;
+  transition: all 0.2s linear;
+}
+
+@keyframes rotBGimg {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.u-star-banner .card::after {
+  content: '';
+  position: absolute;
+  background: #07182e;
+  inset: 5px;
+  border-radius: 15px;
+}
+
+/* Car Animation - yeisonordonez */
+.u-car-anim .container {
+  position: relative;
+  width: 300px;
+  height: 100px;
+}
+
+.u-car-anim .car {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100px;
+  height: 50px;
+  background: #ff3e3e;
+  border-radius: 10px 50px 10px 10px;
+  animation: drive 2s linear infinite;
+}
+
+@keyframes drive {
+  0% { left: -100px; }
+  100% { left: 300px; }
+}
+
+/* MasterCard - JkHuger */
+.u-mastercard .card {
+  width: 300px;
+  height: 180px;
+  background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%);
+  border-radius: 15px;
+  padding: 20px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.u-mastercard .logo {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+}
+
+.u-mastercard .circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.u-mastercard .red { background: #eb001b; }
+.u-mastercard .yellow { background: #f79e1b; margin-left: -15px; opacity: 0.8; }
+
+/* Hoodie Card - Smit-Prajapati */
+.u-hoodie-card .card {
+  width: 200px;
+  height: 250px;
+  background: #1a1a1a;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border: 1px solid #333;
+}
+
+/* Astronaut Card - Praashoo7 */
+.u-astro-card .card {
+  width: 250px;
+  height: 350px;
+  background: #0a0a0a;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #222;
+}
+
+/* Truck Animation - yeisonordonez */
+.u-truck-anim .truck {
+  width: 120px;
+  height: 60px;
+  background: #333;
+  position: relative;
+  animation: truck-drive 3s linear infinite;
+}
+
+@keyframes truck-drive {
+  0% { transform: translateX(-150px); }
+  100% { transform: translateX(400px); }
+}
+
+/* Phone Card 1 - Rodrypaladin */
+.u-phone-card-1 .phone {
+  width: 200px;
+  height: 400px;
+  background: #222;
+  border-radius: 30px;
+  border: 4px solid #444;
+}
+
+/* Phone Card 2 - escannord */
+.u-phone-card-2 .phone {
+  width: 220px;
+  height: 440px;
+  background: #111;
+  border-radius: 40px;
+}
+
+/* Social Squircle - Itskrish01 */
+.u-social-squircle .icon {
+  width: 60px;
+  height: 60px;
+  background: #333;
+  clip-path: url(#squircle);
+}
+
+/* Transaction Card - Admin12121 */
+.u-transaction-card .card {
+  width: 320px;
+  background: #1a1a1a;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+/* 3D UI Card - Smit-Prajapati */
+.u-3d-ui-card .card {
+  width: 300px;
+  height: 400px;
+  background: #222;
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+}
+
+.u-3d-ui-card .card:hover {
+  transform: rotateY(20deg) rotateX(10deg);
+}
+
+/* Spotify Component - Praashoo7 */
+.u-spot .main {
+  background-color: #1a1a1a;
+  padding: 1em;
+  padding-bottom: 1.1em;
+  border-radius: 15px;
+  margin: 1em;
+  border: 1px solid #333;
+}
+
+.u-spot .loader {
+  display: flex;
+  flex-direction: row;
+  height: 4em;
+  padding-left: 1em;
+  padding-right: 1em;
+  transform: rotate(180deg);
+  justify-content: right;
+  border-radius: 10px;
+  transition: .4s ease-in-out;
+}
+
+.u-spot .loader:hover {
+  cursor: pointer;
+  background-color: #333;
+}
+
+.u-spot .currentplaying {
+  display: flex;
+  margin: 1em;
+}
+
+.u-spot .spotify {
+  width: 50px;
+  height: 50px;
+  margin-right: 0.6em;
+}
+
+.u-spot .heading {
+  color: white;
+  font-size: 1.1em;
+  font-weight: bold;
+  align-self: center;
+}
+
+.u-spot .loading {
+  display: flex;
+  margin-top: 1em;
+  margin-left: 0.3em;
+}
+
+.u-spot .load {
+  width: 2px;
+  height: 33px;
+  background-color: #1db954;
+  animation: 1s move6 infinite;
+  border-radius: 5px;
+  margin: 0.1em;
+}
+
+.u-spot .load:nth-child(1) {
+  animation-delay: 0.2s;
+}
+
+.u-spot .load:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.u-spot .load:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+.u-spot .play {
+  position: relative;
+  left: 0.35em;
+  height: 1.6em;
+  width: 1.6em;
+  clip-path: polygon(50% 50%, 100% 50%, 75% 6.6%);
+  background-color: white;
+  transform: rotate(-90deg);
+  align-self: center;
+  margin-top: 0.7em;
+  justify-self: center;
+}
+
+.u-spot .albumcover {
+  position: relative;
+  margin-right: 1em;
+  height: 40px;
+  width: 40px;
+  background-color: #333;
+  align-self: center;
+  border-radius: 5px;
+}
+
+.u-spot .song {
+  position: relative;
+  transform: rotate(180deg);
+  margin-right: 1em;
+  color: white;
+  align-self: center;
+}
+
+.u-spot .artist {
+  font-size: 0.6em;
+  color: #aaa;
+}
+
+@keyframes move6 {
+  0% {
+    height: 0.2em;
+  }
+
+  25% {
+    height: 0.7em;
+  }
+
+  50% {
+    height: 1.5em;
+  }
+
+  100% {
+    height: 0.2em;
+  }
+}
+
+/* 25 Kurus Coin Cursor */
+.coin-cursor {
+  width: 25px;
+  height: 25px;
+  background: #ffd700;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  font-weight: bold;
+  color: #8b4513;
+  border: 1px solid #daa520;
+  box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
